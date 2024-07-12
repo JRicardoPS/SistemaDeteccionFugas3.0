@@ -69,5 +69,15 @@ actor class Backend() = this {
     }
   };
 
+  public func deleteUser(principal: Principal): async { #ok } or { #err : Text } {
+    let identity = principal.toText();
+    if (users.containsKey(identity)) {
+      users.remove(identity);
+      return #ok;
+    } else {
+      return #err("User not found");
+    }
+  };
+
   
 };
