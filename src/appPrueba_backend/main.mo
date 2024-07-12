@@ -44,5 +44,10 @@ actor class Backend() = this {
     }
   };
 
+  public func getUser(principal: Principal): async ?User {
+    let identity = principal.toText();
+    return users.get(identity);
+  };
+
   
 };
