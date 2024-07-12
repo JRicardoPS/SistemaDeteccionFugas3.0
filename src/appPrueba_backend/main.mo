@@ -49,5 +49,25 @@ actor class Backend() = this {
     return users.get(identity);
   };
 
+  public func updateUser(principal: Principal, name: Text, email: Email, password: ?Text): async { #ok : UserId } or { #err : Text } {
+    let identity = principal.toText();
+    switch (users.get(identity)) {
+      case (?user) {
+        let updatedUser = {
+          id = user.id;
+          name = name;
+          email = email;
+          hashedPassword = switch (password) {
+            case (?pwd) { hashSHA256(pwd) };
+            case null { user.hashedPassword };
+          };
+        };
+        users.put(identity, updatedUser);
+        return #ok(identity);
+      };
+      case null { return #err("User not found") };
+    }
+  };
+
   
 };
