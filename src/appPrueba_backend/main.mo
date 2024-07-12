@@ -79,5 +79,16 @@ actor class Backend() = this {
     }
   };
 
-  
+  // Función para iniciar sesión con Internet Identity
+  public func loginWithInternetIdentity(principal: Principal) : async {#ok : UserId} or {#err : Text} {
+    let identity = principal.toText();
+    switch (users.get(identity)) {
+      case (?user) {
+        return #ok(identity);
+      };
+      case null {
+        return #err("User not found");
+      };
+    }
+  };
 };
