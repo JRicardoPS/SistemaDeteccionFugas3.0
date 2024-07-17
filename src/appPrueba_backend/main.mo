@@ -18,7 +18,7 @@ actor class Backend() = this {
 
   var users : TrieMap<UserId, User> = TrieMap.empty();
 
-  // Función para calcular el hash SHA256 de una cadena
+  // Función para calcular el hash SHA256 de una cadena apoco si
   func hashSHA256(input: Text): Blob {
     let buf = Buffer.Buffer<Word8>(Text.length(input));
     for (c in Text.chars(input)) {
